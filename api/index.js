@@ -15,20 +15,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", async (req, res) => {
+app.get("/api/", async (req, res) => {
   return res.json({ message: "Hello, World ✌️" });
 });
 
-app.use('/usuarios',usuariosRoute);
-app.use('/bitacora',bitacoraRoute);
-app.use('/prospectos',prospectosRoute);
+app.use('/api/usuarios',usuariosRoute);
+app.use('/api/bitacora',bitacoraRoute);
+app.use('/api/prospectos',prospectosRoute);
 
 
 // The secret should be an unguessable long string (you can use a password generator for this!)
 const JWT_SECRET ="goK!pusp6ThEdURUtRenOwUhAsWUCLheBazl!uJLPlS8EbreWLdrupIwabRAsiBu";
 
 // Ruta de login
-app.post("/authenticate",async (req, res) => {
+app.post("/api/authenticate",async (req, res) => {
   const usuario  = req.body.Usuario;
   const secret  = req.body.Secret;
   console.log(`${usuario} is trying to login ..`);
@@ -65,7 +65,8 @@ var allowCrossDomain = function(req, res, next) {
 
 const start = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/mongoose?authSource=admin");
+    const db = await mongoose.connect("mongodb://127.0.0.1:27017/mongoose?authSource=admin");
+    console.log("Conexion BD: "+db);
     app.use(allowCrossDomain);
     app.listen(3000, () => console.log("Server started on port 3000"));
   } catch (error) {
