@@ -31,7 +31,7 @@ const JWT_SECRET ="goK!pusp6ThEdURUtRenOwUhAsWUCLheBazl!uJLPlS8EbreWLdrupIwabRAs
 app.post("/api/authenticate",async (req, res) => {
   const usuario  = req.body.Usuario;
   const secret  = req.body.Secret;
-  console.log(`${usuario} is trying to login ..`);
+  console.log(`${usuario} is trying to login ...`);
 
   const U = await Usuario.findOne({Usuario:usuario, estado:true});
   if(!U){
@@ -65,7 +65,7 @@ var allowCrossDomain = function(req, res, next) {
 
 const start = async () => {
   try {
-    const db = await mongoose.connect("mongodb://127.0.0.1:27017/mongoose?authSource=admin");
+    const db = await mongoose.connect("mongodb://127.0.0.1:27017/biblioteca?authSource=admin");
     console.log("Conexion BD: "+db);
     app.use(allowCrossDomain);
     app.listen(3000, () => console.log("Server started on port 3000"));
