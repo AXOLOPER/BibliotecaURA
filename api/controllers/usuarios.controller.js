@@ -5,6 +5,10 @@ const Usuario = require('../models/usuarios.model');
 const BitacoraController = require("./bitacora.controller");
 
 async function registrar(req, res){
+    if(!req.usuario.privilegios.admin.usuarios.create){
+        return res.status(401).json({ message: "No tiene permiso para realizar esa operacion!" });
+    }
+
     const usuario = req.body.Usuario;
     const { Nombre, Secret, Rol } = req.body;
 
@@ -26,10 +30,10 @@ async function registrar(req, res){
     });
 
     // Guardar el usuario en la base de datos
-    await newUser.save();
+    const done = await newUser.save();
 
-    if(newUser){
-        BitacoraController.registrar("creo al usuario: "+newUser.Usuario+", con ID: "+newUser.id, req.usuario.id);
+    if(done){
+        BitacoraController.registrar("creo al usuario: "+done.Usuario+", con ID: "+done._id, req.usuario.id);
     }
 
     return res.status(201).json({ message: "Usuario registrado exitosamente" });
@@ -64,7 +68,7 @@ async function editar(req, res){
     }
     const usuarioEdited = await Usuario.findByIdAndUpdate(usuario._id,usuario);
     if(usuarioEdited){
-        BitacoraController.registrar("modifico al usuario: "+usuarioEdited.Usuario+", con ID: "+usuarioEdited.id, req.usuario.id);
+        BitacoraController.registrar("modifico al usuario: "+usuarioEdited.Usuario+", con ID: "+usuarioEdited._id, req.usuario.id);
     }
     return res.status(200).json(usuarioEdited);
 }
@@ -78,10 +82,8 @@ async function eliminar(req, res){
     const estado = !usuarioConsulted.estado;
     const usuarioEdited = await Usuario.findByIdAndUpdate(id,{estado:estado});
     if(usuarioEdited){
-        BitacoraController.registrar("elimino al usuario: "+usuarioEdited.Usuario+", con ID: "+usuarioEdited.id, req.usuario.id);
+        BitacoraController.registrar("elimino al usuario: "+usuarioEdited.Usuario+", con ID: "+usuarioEdited._id, req.usuario.id);
     }
-
-
     return res.status(200).json(usuarioEdited);
 }
 

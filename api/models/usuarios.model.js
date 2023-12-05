@@ -21,23 +21,20 @@ const usuariosSchema = new mongoose.Schema({
         read:{type:Boolean},
       }
     },
-    controlescolarT:{type:Boolean},
-    controlescolar:{
-      alumnosT:{type:Boolean},
-      alumnos:{
-        create:{type:Boolean},
-        read:{type:Boolean},
-        update:{type:Boolean},
-        delete:{type:Boolean}
-      },
-      prospectosT:{type:Boolean},
-      prospectos:{
-        create:{type:Boolean},
-        read:{type:Boolean},
-        update:{type:Boolean},
-        delete:{type:Boolean}
-      }
-    }
+    librosT:{type:Boolean},
+    libros:{
+      create:{type:Boolean},
+      read:{type:Boolean},
+      update:{type:Boolean},
+      delete:{type:Boolean}
+    },
+    carrerasT:{type:Boolean},
+    carreras:{
+      create:{type:Boolean},
+      read:{type:Boolean},
+      update:{type:Boolean},
+      delete:{type:Boolean}
+    },
   }
 });
 

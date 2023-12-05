@@ -17,6 +17,6 @@ api.get("/:id",md_auth.ensureAuth,usuarioController.ver1);
 api.put("/",md_auth.ensureAuth,usuarioController.editar);
 
 // Ruta para poner a los uusarios com activos e inactivos
-api.delete("/delete/:id",md_auth.ensureAuth,usuarioController.eliminar);
+api.delete("/:id",md_auth.ensureAuth,usuarioController.eliminar);
 
 module.exports = api;
