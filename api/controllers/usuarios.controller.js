@@ -10,7 +10,7 @@ async function registrar(req, res){
     }
 
     const usuario = req.body.Usuario;
-    const { Nombre, Secret, Rol } = req.body;
+    const { Nombre, Secret, Rol, privilegios } = req.body;
 
     // Verificar si el usuario ya existe en la base de datos
     const existingUser = await Usuario.findOne({ Usuario:usuario });
@@ -26,7 +26,8 @@ async function registrar(req, res){
         Nombre,
         Usuario:usuario,
         Secret: hashedPassword,
-        Rol
+        Rol,
+        privilegios
     });
 
     // Guardar el usuario en la base de datos

@@ -28,13 +28,6 @@ const usuariosSchema = new mongoose.Schema({
       update:{type:Boolean},
       delete:{type:Boolean}
     },
-    carrerasT:{type:Boolean},
-    carreras:{
-      create:{type:Boolean},
-      read:{type:Boolean},
-      update:{type:Boolean},
-      delete:{type:Boolean}
-    },
   }
 });
 

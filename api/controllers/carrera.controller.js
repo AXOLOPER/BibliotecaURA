@@ -7,13 +7,18 @@ const BitacoraController = require("./bitacora.controller");
 async function create(req, res) {
   try {
     const nuevo = new Modelo(req.body);
+    const exists1 = await Modelo.findOne({Clave:nuevo.Clave});
+    const exists2 = await Modelo.findOne({Abreviatura:nuevo.Abreviatura});
+    if(exists1||exists2){
+      return res.status(400).send({message:"La Carrera ya existe"});
+    }
     const saved = await nuevo.save();
   if(saved){
       BitacoraController.registrar("registró "+text+" "+saved.Nombre+" con id: "+saved._id,req.usuario.id);
     }
     res.status(201).json(saved);
   } catch (error) {
-    console.error('Error al guardar '+text+':', error);
+    console.error('Error al guardar '+text+': ', error);
     res.status(500).json({ error: 'Ocurrió un error al guardar '+text });
   }
 };
